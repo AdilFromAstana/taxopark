@@ -9,8 +9,6 @@ function TaxiParkCard() {
         borderRadius: "10px",
         overflow: "hidden",
         boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-        margin: "0 auto",
-        maxWidth: "40%",
       }}
       styles={{
         body: {
@@ -18,7 +16,6 @@ function TaxiParkCard() {
         },
       }}
     >
-      {/* Верхний блок */}
       <div
         style={{
           padding: "20px",

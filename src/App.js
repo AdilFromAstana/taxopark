@@ -1,30 +1,19 @@
-import "./App.css";
-import AppPromotion from "./components/AppPromotion";
-import CalculateIncome from "./components/CalculateIncome";
-import ChooseTaxopark from "./components/ChooseTaxopark";
-import Header from "./components/Header";
+import FieldForm from "./components/FieldForm/FieldForm";
+import MainTitle from "./components/MainTitle/MainTitle";
+import Header from "./components/Header/Header";
+import ChooseTaxopark from "./components/ChooseTaxopark/ChooseTaxopark";
 import SubmitRequest from "./components/SubmitRequest";
-import TaxiParkCard from "./components/TaxiParkCard";
+import 'react-phone-input-2/lib/style.css'
+import "./App.css";
 
 function App() {
   return (
     <div className="App">
       <Header />
+      <MainTitle />
       <ChooseTaxopark />
-      <SubmitRequest />
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "20px",
-          backgroundColor: "#f9f9f9",
-        }}
-      >
-        <CalculateIncome />
-        <TaxiParkCard />
-        <TaxiParkCard />
-        <AppPromotion />
-      </div>
+      {/* <SubmitRequest /> */}
+      <FieldForm />
     </div>
   );
 }
