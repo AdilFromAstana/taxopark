@@ -14,22 +14,35 @@ function formatNumber(number) {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
 
+const getCardCount = (width) => {
+  if (width < 430) {
+    return 1.1;
+  } else if (width > 430 && width < 768) {
+    return 1.5;
+  } else if (width > 768 && width < 1024) {
+    return 2;
+  } else {
+    return 3;
+  }
+};
+
 const Carousel = ({ items }) => {
   const [carouselItems, setCarouselItems] = useState([]);
+  const [slidesToShow, setSlidesToShow] = useState(
+    getCardCount(window.innerWidth)
+  );
   const sliderRef = useRef(null);
-  const width = window.innerWidth;
 
-  const getCardCount = () => {
-    if (width < 430) {
-      return 1.1;
-    } else if (width > 430 && width < 768) {
-      return 1.5;
-    } else if (width > 768 && width < 1024) {
-      return 2;
-    } else {
-      return 3;
-    }
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      setSlidesToShow(getCardCount(window.innerWidth));
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     setCarouselItems(items);
@@ -52,7 +65,7 @@ const Carousel = ({ items }) => {
         className="carousel-slider"
         dots={false}
         infinite={false}
-        slidesToShow={getCardCount()}
+        slidesToShow={slidesToShow}
         slidesToScroll={1}
         ref={sliderRef}
       >
