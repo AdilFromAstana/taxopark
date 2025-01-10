@@ -62,6 +62,9 @@
     align-items: center;
     gap: 1.5vw;
   }
+  .main-section-text {
+    align-items: center;
+  }
 
   .main-section-title {
     text-align: center;
@@ -80,7 +83,7 @@
 
 @media (max-width: 576px) {
   .main-section-container {
-    padding: 5vw 10vw;
+    padding: 5vw;
   }
 
   .main-section-desc {

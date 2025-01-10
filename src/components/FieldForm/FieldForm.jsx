@@ -6,11 +6,12 @@ import whatsApp from "../../images/whatsapp.svg";
 import email from "../../images/email.svg";
 import PhoneInput from "react-phone-input-2";
 import "./FieldForm.css";
+import SupportModal from "./SupportModal/SupportModal";
 
 function FieldForm() {
-  const [number, setNumber] = useState("+7");
-
-  const submit = () => {};
+  const [phone, setPhone] = useState("");
+  const [step, setStep] = useState(1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className="field-form">
@@ -27,50 +28,41 @@ function FieldForm() {
             <h2 className="field-form-form-title">Получить консультацию!</h2>
             <Form
               layout="vertical"
-              className="field-form-form"
-              onFinish={(values) => console.log("Submitted: ", values)}
+              onFinish={() => {
+                setIsModalOpen(true);
+                setStep(2); // Перейти на второй шаг
+              }}
             >
               <Form.Item
+                label="ФИО"
                 name="name"
-                rules={[{ required: true, message: "Введите ваше имя" }]}
+                rules={[{ required: true, message: "Пожалуйста, введите ФИО" }]}
               >
-                <Input placeholder="Ваше имя" size="large" />
+                <Input placeholder="Введите ФИО" />
               </Form.Item>
-
-              <Form.Item name="phone">
+              <Form.Item
+                label="Телефон"
+                name="phone"
+                rules={[
+                  {
+                    required: true,
+                    message: "Пожалуйста, введите номер телефона",
+                  },
+                ]}
+              >
                 <PhoneInput
-                  disableDropdown
+                  country="kz"
                   onlyCountries={["kz"]}
-                  country={"kz"}
-                  value={number}
-                  prefix="+"
-                  onChange={(e) => {
-                    console.log("e: ", e);
-                    setNumber(e);
-                  }}
+                  value={phone}
+                  onChange={(value) => setPhone(value)}
+                  placeholder="+7-777-77-77-77"
+                  disableDropdown={true} // Отключение смены флага
+                  masks={{ kz: "(...) ...-..-.." }} // Маска для Казахстана
                 />
               </Form.Item>
-
-              <Form.Item name="agreement" valuePropName="checked">
-                <Checkbox>
-                  <div className="field-form-form-checkbox">
-                    Даю согласие на обработку{" "}
-                    <a href="/" className="field-form-link">
-                      персональных данных
-                    </a>
-                  </div>
-                </Checkbox>
-              </Form.Item>
-              <Form.Item>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  className="field-form-button"
-                  size="large"
-                >
-                  Отправить
-                </Button>
-              </Form.Item>
+              <Button type="primary" size="large" htmlType="submit" block>
+                Отправить
+              </Button>
             </Form>
           </div>
         </div>
@@ -112,6 +104,15 @@ function FieldForm() {
           </a>
         </div>
       </div>
+
+      <SupportModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        phone={phone}
+        setPhone={setPhone}
+        setStep={setStep}
+        step={step}
+      />
     </div>
   );
 }

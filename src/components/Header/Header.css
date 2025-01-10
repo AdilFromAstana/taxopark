@@ -1,7 +1,8 @@
 .header {
-  background-color: #f7c600;
+  background-color: #5a9bf7;
   padding: 10px 2.5vw;
   box-sizing: border-box;
+  color: white;
 }
 
 .header-menu {
@@ -52,6 +53,7 @@
 }
 
 .header-link {
+  color: white;
   font-size: 1rem;
   margin: 5px;
 }
@@ -63,8 +65,8 @@
 
 .header-register-button {
   border-radius: 24px;
-  background-color: #f7c600;
-  color: black;
+  background-color: #5a9bf7;
+  color: white;
   border: 1px solid black;
   font-size: 0.9rem;
 }

@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Slider, Checkbox, Row, Col, Card } from "antd";
+import { Slider, Checkbox, Row, Col, Card, Select } from "antd";
 import { MdOutlineCalendarToday } from "react-icons/md";
 import { LuClock3, LuGift } from "react-icons/lu";
 import { FiHeadphones } from "react-icons/fi";
 import { FaCarSide } from "react-icons/fa6";
+import { FaLocationDot } from "react-icons/fa6";
 
 const Filters = ({ setFilteredItems }) => {
   const items = [
@@ -14,8 +15,9 @@ const Filters = ({ setFilteredItems }) => {
       paymentType: "Безналичный расчет",
       supportWorkTime: "Круглосуточно",
       commissionWithdraw: "1% при выводе на карту",
-      bonuses: ["Бонус за первые 5 поездок", "Скидка на топливо"],
+      parkPromotions: ["Приветственные бонусы"],
       commission: 15,
+      city: "Астана",
     },
     {
       image:
@@ -24,8 +26,9 @@ const Filters = ({ setFilteredItems }) => {
       paymentType: "Банковская карта",
       supportWorkTime: "08:00 - 22:00",
       commissionWithdraw: "0.5% на карту",
-      bonuses: ["Скидка на ТО", "Бесплатная мойка"],
+      parkPromotions: ["Бонус за активность"],
       commission: 12,
+      city: "Алматы",
     },
     {
       image:
@@ -34,8 +37,9 @@ const Filters = ({ setFilteredItems }) => {
       paymentType: "Безналичный расчет",
       supportWorkTime: "Круглосуточно",
       commissionWithdraw: "1% на карту",
-      bonuses: ["Повышенный доход ночью", "Подарки за выполнение планов"],
+      parkPromotions: ["Гарантированные бонусы"],
       commission: 14,
+      city: "Шымкент",
     },
     {
       image:
@@ -44,8 +48,9 @@ const Filters = ({ setFilteredItems }) => {
       paymentType: "Снятие наличных",
       supportWorkTime: "06:00 - 00:00",
       commissionWithdraw: "0%",
-      bonuses: ["Бесплатная техподдержка", "Скидка на запчасти"],
+      parkPromotions: ["Приведи друга"],
       commission: 10,
+      city: "Астана",
     },
     {
       image:
@@ -54,8 +59,9 @@ const Filters = ({ setFilteredItems }) => {
       paymentType: "Безналичный расчет",
       supportWorkTime: "07:00 - 23:00",
       commissionWithdraw: "0.8% на карту",
-      bonuses: ["Скидка на страховку", "Увеличенные тарифы в час пик"],
+      parkPromotions: ["Розыгрыш"],
       commission: 13,
+      city: "Алматы",
     },
     {
       image:
@@ -64,8 +70,9 @@ const Filters = ({ setFilteredItems }) => {
       paymentType: "Снятие наличных",
       supportWorkTime: "09:00 - 21:00",
       commissionWithdraw: "1.2% при выводе",
-      bonuses: ["Бесплатный ремонт до 2 раз в месяц"],
+      parkPromotions: ["Приветственные бонусы"],
       commission: 11,
+      city: "Шымкент",
     },
     {
       image:
@@ -74,8 +81,9 @@ const Filters = ({ setFilteredItems }) => {
       paymentType: "Банковская карта",
       supportWorkTime: "06:00 - 22:00",
       commissionWithdraw: "0%",
-      bonuses: ["Бонус за выполнение 50 заказов", "Скидка на парковку"],
+      parkPromotions: ["Гарантированные бонусы"],
       commission: 10,
+      city: "Астана",
     },
     {
       image:
@@ -84,8 +92,9 @@ const Filters = ({ setFilteredItems }) => {
       paymentType: "Безналичный расчет",
       supportWorkTime: "Круглосуточно",
       commissionWithdraw: "1.5% на карту",
-      bonuses: ["Скидка на аренду авто"],
+      parkPromotions: ["Розыгрыш"],
       commission: 14,
+      city: "Алматы",
     },
     {
       image:
@@ -94,8 +103,9 @@ const Filters = ({ setFilteredItems }) => {
       paymentType: "Банковская карта",
       supportWorkTime: "07:00 - 23:00",
       commissionWithdraw: "0.3%",
-      bonuses: ["Дополнительная смена в подарок"],
+      parkPromotions: ["Приведи друга"],
       commission: 13,
+      city: "Шымкент",
     },
     {
       image:
@@ -104,40 +114,74 @@ const Filters = ({ setFilteredItems }) => {
       paymentType: "Безналичный расчет",
       supportWorkTime: "08:00 - 20:00",
       commissionWithdraw: "0.7% на карту",
-      bonuses: ["Подарки за рейтинг 4.9+", "Бесплатный техосмотр"],
+      parkPromotions: ["Бонус за активность"],
       commission: 12,
+      city: "Астана",
     },
   ];
 
+  const [supportTimeFilters, setSupportTimeFilters] = React.useState({
+    allDay: false, // "Круглосуточно"
+    limited: false, // "Ограниченное время"
+  });
+
+  const handleSupportTimeFilters = (filterType) => {
+    setSupportTimeFilters((prevFilters) => ({
+      ...prevFilters,
+      [filterType]: !prevFilters[filterType], // Переключаем состояние выбранного фильтра
+    }));
+  };
+
   const [workDays, setWorkDays] = useState(0);
+  const [orderPerDay, setOrderPerDay] = useState(0);
   const yandexCommission = 7;
   const averageBill = 1200;
-  const [orderPerDay, setOrderPerDay] = useState(0);
-  const [instantPayment, setInstantPayment] = useState(false);
-  const [queuePayment, setQueuePayment] = useState(false);
-  const [roundTheClockSupport, setRoundTheClockSupport] = useState(false);
-  const [workHoursSupport, setWorkHoursSupport] = useState(false);
-  const [limitedSupport, setLimitedSupport] = useState(false);
-  const [onlyWithBonuses, setOnlyWithBonuses] = useState(false);
+
+  const [parkPromotions, setParkPromotions] = useState([]);
+  const [selectedCity, setSelectedCity] = useState(null);
+  const [isPaymentWithCommission, setIsPaymentWithCommission] = useState(false);
+
   const debounceTimeout = useRef(null);
+  const allParkPromotions = [
+    "Гарантированные бонусы",
+    "Приветственные бонусы",
+    "Розыгрыш",
+    "Бонус за активность",
+    "Приведи друга",
+  ];
+  const allCities = [
+    { value: "Астана", label: "Астана" },
+    { value: "Алматы", label: "Алматы" },
+    { value: "Шымкент", label: "Шымкент" },
+  ];
 
   const applyFilters = () => {
     const filtered = items.filter((item) => {
-      // if (item.commission > workDays) return false;
-      if (onlyWithBonuses && (!item.bonuses || item.bonuses.length === 0)) {
+      const hasMatchingCity = !selectedCity || selectedCity === item.city;
+      const hasMatchingPromotions =
+        parkPromotions.length === 0 ||
+        item.parkPromotions?.some((promotion) =>
+          parkPromotions.includes(promotion)
+        );
+
+      // Логика фильтрации по чекбоксам "Круглосуточно" и "Ограниченное время"
+      const matchesAllDay =
+        supportTimeFilters.allDay && item.supportWorkTime === "Круглосуточно";
+      const matchesLimited =
+        supportTimeFilters.limited && item.supportWorkTime !== "Круглосуточно";
+      const matchesCheckboxes =
+        (!supportTimeFilters.allDay && !supportTimeFilters.limited) ||
+        matchesAllDay ||
+        matchesLimited;
+
+      // Если условия не выполняются, исключаем элемент
+      if (!hasMatchingPromotions || !hasMatchingCity || !matchesCheckboxes) {
         return false;
       }
-      if (roundTheClockSupport && item.supportWorkTime !== "Круглосуточно") {
-        return false;
-      }
-      if (workHoursSupport && !item.supportWorkTime.includes("08:00 - 22:00")) {
-        return false;
-      }
-      if (limitedSupport && item.supportWorkTime !== "Ограниченная") {
-        return false;
-      }
+
       return true;
     });
+
     setFilteredItems(
       filtered.map((item) => {
         return {
@@ -170,12 +214,10 @@ const Filters = ({ setFilteredItems }) => {
   }, [
     workDays,
     orderPerDay,
-    instantPayment,
-    queuePayment,
-    roundTheClockSupport,
-    workHoursSupport,
-    limitedSupport,
-    onlyWithBonuses,
+    parkPromotions,
+    isPaymentWithCommission,
+    selectedCity,
+    supportTimeFilters,
   ]);
 
   return (
@@ -199,46 +241,42 @@ const Filters = ({ setFilteredItems }) => {
 
         <Col>
           <h4 className="filter-label">
-            Скорость выплат <LuClock3 fontSize="20px" />
+            Выплаты <LuClock3 fontSize="20px" />
           </h4>
           <div className="filter-checkbox-group">
             <Checkbox
-              checked={instantPayment}
-              onChange={(e) => setInstantPayment(e.target.checked)}
+              checked={isPaymentWithCommission}
+              onChange={(e) => setIsPaymentWithCommission(true)}
             >
-              Мгновенные
+              С комиссией
             </Checkbox>
             <Checkbox
-              checked={queuePayment}
-              onChange={(e) => setQueuePayment(e.target.checked)}
+              checked={!isPaymentWithCommission}
+              onChange={(e) => setIsPaymentWithCommission(false)}
             >
-              По очереди
+              Без комиссии
             </Checkbox>
           </div>
         </Col>
 
         <Col>
           <h4 className="filter-label">
-            Поддержка <FiHeadphones fontSize="20px" />
+            Техподдержка <FiHeadphones fontSize="20px" />
           </h4>
           <div className="filter-checkbox-group">
             <Checkbox
-              checked={roundTheClockSupport}
-              onChange={(e) => setRoundTheClockSupport(e.target.checked)}
+              type="checkbox"
+              checked={supportTimeFilters.allDay}
+              onChange={() => handleSupportTimeFilters("allDay")}
             >
               Круглосуточно
             </Checkbox>
             <Checkbox
-              checked={workHoursSupport}
-              onChange={(e) => setWorkHoursSupport(e.target.checked)}
+              type="checkbox"
+              checked={supportTimeFilters.limited}
+              onChange={() => handleSupportTimeFilters("limited")}
             >
-              В рабочее время
-            </Checkbox>
-            <Checkbox
-              checked={limitedSupport}
-              onChange={(e) => setLimitedSupport(e.target.checked)}
-            >
-              Ограниченная
+              Ограниченное время
             </Checkbox>
           </div>
         </Col>
@@ -259,15 +297,47 @@ const Filters = ({ setFilteredItems }) => {
 
         <Col>
           <h4 className="filter-label">
-            Только с бонусами <LuGift fontSize="20px" />
+            Акции парка <LuGift fontSize="20px" />
           </h4>
           <div className="filter-checkbox-group">
-            <Checkbox
-              checked={onlyWithBonuses}
-              onChange={(e) => setOnlyWithBonuses(e.target.checked)}
-            >
-              Только с бонусами
-            </Checkbox>
+            {allParkPromotions.map((parkPromotion) => {
+              return (
+                <Checkbox
+                  key={parkPromotion}
+                  checked={parkPromotions.includes(parkPromotion)}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setParkPromotions((parkPromotions) => [
+                        ...parkPromotions,
+                        parkPromotion,
+                      ]);
+                    } else {
+                      setParkPromotions((parkPromotions) =>
+                        parkPromotions.filter((item) => item !== parkPromotion)
+                      );
+                    }
+                  }}
+                >
+                  {parkPromotion}
+                </Checkbox>
+              );
+            })}
+          </div>
+        </Col>
+
+        <Col>
+          <h4 className="filter-label">
+            Город <FaLocationDot fontSize="20px" />
+          </h4>
+          <div className="filter-select">
+            <Select
+              style={{ width: "100%" }}
+              allowClear
+              placeholder="Выберите город"
+              options={allCities}
+              onChange={setSelectedCity}
+              value={selectedCity}
+            />
           </div>
         </Col>
       </Row>
