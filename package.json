@@ -13,6 +13,7 @@
     "react-scripts": "5.0.1",
     "react-slick": "^0.30.3",
     "react-snap": "^1.23.0",
+    "sitemap": "^8.0.0",
     "slick-carousel": "^1.8.1",
     "web-vitals": "^4.2.4"
   },
@@ -20,7 +21,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "postbuild": "react-snap"
+  },
+  "reactSnap": {
+    "inlineCss": true
   },
   "eslintConfig": {
     "extends": [
