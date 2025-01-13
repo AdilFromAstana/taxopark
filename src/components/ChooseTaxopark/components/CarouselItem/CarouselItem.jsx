@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Card, Button, message } from "antd";
-import { IoIosStar, IoMdArrowRoundBack } from "react-icons/io";
+import { Card, Button } from "antd";
+import { IoIosStar } from "react-icons/io";
 import {
   MdPercent,
   MdCarRental,
@@ -22,12 +22,12 @@ function formatNumber(number) {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
 
-// const CarouselItem = ({ item, index, isModalOpen, setIsModalOpen }) => {
 const CarouselItem = ({ item, index, setCarouselDisabled }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [flipped, setFlipped] = useState(false);
 
-  const openModal = () => {
+  const openModal = (event) => {
+    event.stopPropagation();
     setCarouselDisabled(true);
     setIsModalOpen(true);
   };
@@ -45,7 +45,7 @@ const CarouselItem = ({ item, index, setCarouselDisabled }) => {
     <div className="flip-card">
       <div className={`flip-card-inner ${flipped ? "flipped" : ""}`}>
         <div className="flip-card-front">
-          <Card className="carousel-card" key={index}>
+          <Card className="carousel-card" key={index} onClick={toggleFlip}>
             <img
               className="carousel-card-image"
               src={item.image}
@@ -98,21 +98,21 @@ const CarouselItem = ({ item, index, setCarouselDisabled }) => {
               <Button
                 className="carousel-card-button"
                 size="large"
-                onClick={toggleFlip}
+                onClick={openModal}
               >
-                Подробнее
+                Оставить заявку
               </Button>
             </div>
           </Card>
         </div>
 
         <div className="flip-card-back">
-          <Card className="carousel-card" key={`${index}-back`}>
+          <Card
+            className="carousel-card"
+            key={`${index}-back`}
+            onClick={toggleFlip}
+          >
             <div className="carousel-card-info-backside carousel-card-info">
-              <IoMdArrowRoundBack
-                className="carousel-card-back-button"
-                onClick={toggleFlip}
-              />
               <h3
                 className="carousel-card-title"
                 style={{ textAlign: "center", width: "100%" }}

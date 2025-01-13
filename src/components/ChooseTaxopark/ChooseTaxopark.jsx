@@ -11,7 +11,7 @@ const ChooseTaxopark = () => {
   return (
     <div className="carousel-wrapper">
       <div className="choose-taxopark-title">
-        <h2>Выберите лучший таксопарк</h2>
+        <h1>Выберите лучший таксопарк</h1>
         <span>
           Сравните комиссии, скорость выплат и бонусы разных таксопарков
         </span>

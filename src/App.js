@@ -1,20 +1,20 @@
-import FieldForm from "./components/FieldForm/FieldForm";
-import MainTitle from "./components/MainTitle/MainTitle";
 import Header from "./components/Header/Header";
-import ChooseTaxopark from "./components/ChooseTaxopark/ChooseTaxopark";
-import SubmitRequest from "./components/SubmitRequest";
-import 'react-phone-input-2/lib/style.css'
+import "react-phone-input-2/lib/style.css";
 import "./App.css";
+import AppRouter from "./components/AppRouter";
+import { BrowserRouter } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 
 function App() {
   return (
-    <div className="App">
-      <Header />
-      <MainTitle />
-      <ChooseTaxopark />
-      {/* <SubmitRequest /> */}
-      <FieldForm />
-    </div>
+    <HelmetProvider>
+      <BrowserRouter>
+        <div className="App">
+          <Header />
+          <AppRouter />
+        </div>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }
 
