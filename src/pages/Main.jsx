@@ -5,6 +5,7 @@ import FieldForm from "../components/FieldForm/FieldForm";
 import HowItWorks from "../components/HowItWorks/HowItWorks";
 import MainTitle from "../components/MainTitle/MainTitle";
 import Reviews from "../components/Reviews/Reviews";
+import mainTitleImg from "../images/main-title.png";
 
 const Main = () => {
   return (
@@ -49,7 +50,8 @@ const Main = () => {
         <link rel="canonical" href="https://example.com" />
       </Helmet>
 
-      <MainTitle />
+      {/* <MainTitle /> */}
+      <img src={mainTitleImg} alt="mainTitleImg" style={{ width: "100%" }} />
       <ChooseTaxopark />
       <Reviews />
       <HowItWorks />

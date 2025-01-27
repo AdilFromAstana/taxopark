@@ -21,7 +21,7 @@ function FieldForm() {
           </div>
 
           <div className="field-form-right">
-            <h2 className="field-form-form-title">Получить консультацию!</h2>
+            <h2 className="field-form-form-title">Бесплатная консультация!</h2>
             <Form
               layout="vertical"
               onFinish={() => {

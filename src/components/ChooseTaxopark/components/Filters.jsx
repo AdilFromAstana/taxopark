@@ -121,8 +121,8 @@ const Filters = ({ setFilteredItems }) => {
   ];
 
   const [supportTimeFilters, setSupportTimeFilters] = React.useState({
-    allDay: false, // "Круглосуточно"
-    limited: false, // "Ограниченное время"
+    allDay: false,
+    limited: false,
   });
 
   const handleSupportTimeFilters = (filterType) => {
@@ -132,8 +132,8 @@ const Filters = ({ setFilteredItems }) => {
     }));
   };
 
-  const [workDays, setWorkDays] = useState(0);
-  const [orderPerDay, setOrderPerDay] = useState(0);
+  const [workDays, setWorkDays] = useState(25);
+  const [orderPerDay, setOrderPerDay] = useState(8);
   const yandexCommission = 7;
   const averageBill = 1200;
 
@@ -222,7 +222,7 @@ const Filters = ({ setFilteredItems }) => {
 
   return (
     <Card className="filters-card">
-      <h2 className="filters-title">Расчитать доход</h2>
+      <h2 className="filters-title">Выбрать таксопарк</h2>
       <Row className="filters-grid">
         <Col>
           <h4 className="filter-label">

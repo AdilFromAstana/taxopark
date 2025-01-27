@@ -11,7 +11,7 @@ const ChooseTaxopark = () => {
   return (
     <div className="carousel-wrapper">
       <div className="choose-taxopark-title">
-        <h1>Выберите лучший таксопарк</h1>
+        <h1>Выберите таксопарк</h1>
         <span>
           Сравните комиссии, скорость выплат и бонусы разных таксопарков
         </span>
@@ -28,13 +28,13 @@ const ChooseTaxopark = () => {
           onClick={() => setIsDrawerOpen(true)}
           type="primary"
         >
-          Расчитать доход
+          Выбрать таксопарк
         </Button>
       </div>
       <Carousel items={filteredItems} />
       <Drawer
         open={isDrawerOpen}
-        title="Расчитать доход"
+        title="Выбрать таксопарк"
         onClose={() => setIsDrawerOpen(false)}
         className="carousel-drawer"
       >

@@ -148,6 +148,7 @@
   .step {
     box-sizing: border-box;
     margin: 0;
+    width: 100%;
   }
   .step h3 {
     font-size: 1.25rem;

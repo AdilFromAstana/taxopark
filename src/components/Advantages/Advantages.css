@@ -114,13 +114,19 @@
     margin: 0;
     box-sizing: border-box;
     width: 100%;
-    aspect-ratio: 2 / 1;
+    aspect-ratio: 2.4 / 1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: none;
+  }
+  .advantage-item:hover {
+    transform: none;
+    box-shadow: none;
   }
   .advantage-title {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
   .advantage-description {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
   .advantage-icon {
     font-size: 3rem;

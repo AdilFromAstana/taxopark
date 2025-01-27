@@ -6,10 +6,10 @@ import { Result } from "antd";
 import { FrownOutlined } from "@ant-design/icons";
 import CarouselItem from "./CarouselItem/CarouselItem";
 
-const getCardCount = (width = 429) => {
-  if (width <= 430) {
+const getCardCount = (width = 479) => {
+  if (width <= 480) {
     return 1.1;
-  } else if (width > 430 && width < 768) {
+  } else if (width > 480 && width < 768) {
     return 1.5;
   } else if (width > 768 && width < 1024) {
     return 2;
